@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Stack Open Project</title>
 </head>
 <body>
     <h1>Full Stack Open Project</h1>
