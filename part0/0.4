@@ -4,20 +4,20 @@ sequenceDiagram
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    server-->>browser: new_note (302 Found)
+    server-->>browser: notes (302 Found)
     deactivate server
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/main.css
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: main.css (304 Not Modified)
     deactivate server
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/main.js
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: main.js (304 Not Modified)
     deactivate server
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/data.json
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
     server-->>browser: data.json (200 ok)
     deactivate server
