@@ -18,7 +18,7 @@ const App = () => {
 
 export default App
 
-const Header = (props) => {
+const Header = (props) => { //the props is a object
   return (
     <>
     <h1>{props.course}</h1>
