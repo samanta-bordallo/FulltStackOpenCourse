@@ -8,6 +8,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const titulo = "give feedback"
+  const average = (good * 1 + neutral * 0 + bad * -1) / (good + neutral + bad)
 
   const buttongood = () => {
     setGood(good + 1)
@@ -27,7 +28,7 @@ const App = () => {
         onNeutralClick={buttonneutral}
         onBadClick={buttonbad}
       />
-      <Statistic good={good} neutral={neutral} bad={bad} />
+      <Statistic good={good} neutral={neutral} bad={bad} average={average} />
     </div>
   )
 }
@@ -62,7 +63,7 @@ const MyButton = ({ onClick, text }) => {
   )
 }
 
-const Statistic = ({ good, neutral, bad }) => {
+const Statistic = ({ good, neutral, bad, average }) => {
   return (
     <>
       <div>
@@ -70,6 +71,9 @@ const Statistic = ({ good, neutral, bad }) => {
         <div>good {good}</div>
         <div>neutral {neutral}</div>
         <div>bad {bad}</div>
+        <div>all {good + neutral + bad}</div>
+        <div>average {average}</div>
+        <div>positive {good / (good + neutral + bad) * 100} %</div>
       </div>
     </>
   )
