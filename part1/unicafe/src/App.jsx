@@ -18,6 +18,7 @@ const App = () => {
     setBad(bad + 1)
   }
 
+
   return (
     <div>
       <Header titulo={titulo} />
@@ -62,6 +63,15 @@ const MyButton = ({ onClick, text }) => {
 }
 
 const Statistics = ({ good, neutral, bad, average }) => {
+  if (good == 0 && neutral == 0 && bad == 0)
+    return (
+      <>
+        <div>
+          <h1> statistics</h1>
+          No feedback given
+        </div>
+      </>
+    )
   return (
     <>
       <div>
@@ -76,6 +86,5 @@ const Statistics = ({ good, neutral, bad, average }) => {
     </>
   )
 }
-
 
 export default App
