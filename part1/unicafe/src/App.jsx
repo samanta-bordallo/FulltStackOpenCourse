@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-
-//rename the commit 
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
@@ -28,7 +26,7 @@ const App = () => {
         onNeutralClick={buttonneutral}
         onBadClick={buttonbad}
       />
-      <Statistic good={good} neutral={neutral} bad={bad} average={average} />
+      <Statistics good={good} neutral={neutral} bad={bad} average={average} />
     </div>
   )
 }
@@ -63,7 +61,7 @@ const MyButton = ({ onClick, text }) => {
   )
 }
 
-const Statistic = ({ good, neutral, bad, average }) => {
+const Statistics = ({ good, neutral, bad, average }) => {
   return (
     <>
       <div>
