@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+
+//rename the commit 
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
@@ -72,8 +74,6 @@ const Statistic = ({ good, neutral, bad }) => {
     </>
   )
 }
-
-
 
 
 export default App
