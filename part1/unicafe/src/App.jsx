@@ -46,18 +46,29 @@ const Counter = ({ onGoodClick, onNeutralClick, onBadClick }) => {
   return (
     <>
       <div>
-        <MyButton text="good" onClick={onGoodClick} />
-        <MyButton text="neutral" onClick={onNeutralClick} />
-        <MyButton text="bad" onClick={onBadClick} />
+        <Button text="good" onClick={onGoodClick} />
+        <Button text="neutral" onClick={onNeutralClick} />
+        <Button text="bad" onClick={onBadClick} />
       </div>
     </>
   )
 }
 
-const MyButton = ({ onClick, text }) => {
+const Button = ({ onClick, text }) => {
   return (
     <>
       <button onClick={onClick}> {text} </button>
+    </>
+  )
+}
+
+const StatisticLine = ({ value, text }) => {
+  return (
+    <>
+
+      <div>
+        {text}: {value}
+      </div>
     </>
   )
 }
@@ -74,17 +85,19 @@ const Statistics = ({ good, neutral, bad, average }) => {
     )
   return (
     <>
-      <div>
-        <h1>statistics</h1>
-        <div>good {good}</div>
-        <div>neutral {neutral}</div>
-        <div>bad {bad}</div>
-        <div>all {good + neutral + bad}</div>
-        <div>average {average}</div>
-        <div>positive {good / (good + neutral + bad) * 100} %</div>
-      </div>
+      <h1>statistics</h1>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <StatisticLine text="all" value={good + neutral + bad} />
+      <StatisticLine text="average" value={average} />
+      <StatisticLine text="good" value={good / (good + neutral + bad) * 100} />
     </>
   )
 }
+
+
+
+
 
 export default App
