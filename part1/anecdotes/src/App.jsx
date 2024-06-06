@@ -17,7 +17,30 @@ const App = () => {
   return (
     <div>
       {anecdotes[selected]}
+      <NextAnecdote anecdotes={anecdotes} setSelected={setSelected} />
     </div>
+  )
+}
+
+const NextAnecdote = ({ anecdotes, setSelected }) => {
+  const handleClick = () => {
+    const randomIndex = Math.floor(Math.random() * anecdotes.length)
+    setSelected(randomIndex)
+  }
+  return (
+    <>
+      <div>
+        <Button text="next anecdote" onClick={handleClick} />
+      </div>
+    </>
+  )
+}
+
+const Button = ({ onClick, text }) => {
+  return (
+    <>
+      <button onClick={onClick}> {text} </button>
+    </>
   )
 }
 
