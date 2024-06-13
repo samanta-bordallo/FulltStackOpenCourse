@@ -65,6 +65,7 @@ const Part = ({ part }) => {
 };
 
 const Total = ({ parts }) => {
+  // exercise 2.3: I already used reduce in the previous exercise.
   const total = parts.reduce((sum, part) => sum + part.exercises, 0);
   return <p><strong>total of {total} exercises </strong></p>;
 };
