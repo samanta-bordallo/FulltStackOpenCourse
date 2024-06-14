@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: '', number: '' }
+    { name: 'Roberto Carlos', number: '902589458' }
   ])
 
   const [searchName, setSearchName] = useState('')
