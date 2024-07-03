@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -8,6 +10,14 @@ const App = () => {
   const [searchName, setSearchName] = useState('')
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+
+  useEffect(() => {
+    console.log('effect')
+    axios.get('http://localhost:3000/persons').then(response => {
+      console.log('promise fulfilled')
+    })
+  }, [])
+
   const onNewNameChange = (event) => {
     setNewName(event.target.value)
   }
