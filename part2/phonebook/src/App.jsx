@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -15,6 +14,7 @@ const App = () => {
     console.log('effect')
     axios.get('http://localhost:3000/persons').then(response => {
       console.log('promise fulfilled')
+      setPersons(response.data)
     })
   }, [])
 
