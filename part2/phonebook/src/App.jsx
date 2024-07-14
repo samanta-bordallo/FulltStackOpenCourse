@@ -36,11 +36,15 @@ const App = () => {
         name: newName,
         number: newNumber
       }
+      axios.post("http://localhost:3000/persons", newNameObj).then(response => {
+        console.log(response)
+        setNewName(persons.concat(newNameObj))
+        setNewName('')
+        setNewNumber('')
 
-      setPersons(persons.concat(newNameObj))
+      })
     }
-    setNewName('')
-    setNewNumber('')
+
   }
 
   const filteredPersons = persons.filter(person =>
