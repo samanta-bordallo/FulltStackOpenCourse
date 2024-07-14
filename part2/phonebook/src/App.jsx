@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Roberto Carlos', number: '902589458' }
-  ])
-
+  const [persons, setPersons] = useState([])
   const [searchName, setSearchName] = useState('')
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -38,10 +35,9 @@ const App = () => {
       }
       axios.post("http://localhost:3000/persons", newNameObj).then(response => {
         console.log(response)
-        setNewName(persons.concat(newNameObj))
+        setPersons(persons.concat(newNameObj))
         setNewName('')
         setNewNumber('')
-
       })
     }
 
