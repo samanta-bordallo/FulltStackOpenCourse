@@ -12,6 +12,10 @@ const App = () => {
       .then(response => {
         setPersons(response.data)
       })
+
+      .catch(error => {
+        alert('Failed to fetch data' + error.message)
+      })
   }, [])
 
   const onNewNameChange = (event) => {
@@ -27,26 +31,43 @@ const App = () => {
     const existingPerson = persons.find(person => person.name === newName)
 
     if (existingPerson) {
-      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        const changedPerson = { ...existingPerson, number: newNumber }
-
-        personsService.update(existingPerson.id, changedPerson)
-          .then(returnedPerson => {
-            setPersons(persons.map(person => person.id !== existingPerson.id ? person : returnedPerson))
-            setNewName('')
-            setNewNumber('')
+      if (window.confirm(`${newName} is already added to phonebook. Replace the old number with a new one?`)) {
+        const newNameObj = {
+          name: newName,
+          number: newNumber
+        }
+        personsService.update(existingPerson.id, newNameObj)
+          .then(response => {
+            const updatedPersons = persons.map(person =>
+              person.id !== existingPerson.id
+                ? person
+                : response.data
+            );
+            setPersons(updatedPersons);
+            setNewName('');
+            setNewNumber('');
           })
+          .catch(error => {
+            alert('Error updating person');
+            console.error('Error:', error);
+          });
       }
     } else {
       const newNameObj = {
         name: newName,
         number: newNumber
       }
-      personsService.create(newNameObj).then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))
-        setNewName('')
-        setNewNumber('')
-      })
+      personsService.create(newNameObj)
+        .then(response => {
+          const updatedPersons = persons.concat(response.data);
+          setPersons(updatedPersons);
+          setNewName('');
+          setNewNumber('');
+        })
+        .catch(error => {
+          alert('Error updating person');
+          console.error('Error:', error);
+        })
     }
   }
 
