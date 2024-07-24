@@ -11,7 +11,7 @@ const App = () => {
     personsService.getAll()
       .then(response => {
         setPersons(response.data)
-      });
+      })
   }, [])
 
   const onNewNameChange = (event) => {
@@ -24,22 +24,40 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault()
 
-    if (persons.some(person => person.name === newName)) {
-      alert(newName + ' is already added to phonebook')
-    }
-    else {
+    const existingPerson = persons.find(person => person.name === newName)
+
+    if (existingPerson) {
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const changedPerson = { ...existingPerson, number: newNumber }
+
+        personsService.update(existingPerson.id, changedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== existingPerson.id ? person : returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+      }
+    } else {
       const newNameObj = {
         name: newName,
         number: newNumber
       }
-      personsService.create(newNameObj).then(() => {
-        const updatedPersons = persons.concat(newNameObj)
-        setPersons(updatedPersons)
+      personsService.create(newNameObj).then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
       })
     }
+  }
 
+  const deletePerson = id => {
+    const person = persons.find(p => p.id === id)
+
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personsService.del(id).then(() => {
+        setPersons(persons.filter(p => p.id !== id))
+      })
+    }
   }
 
   const filteredPersons = persons.filter(person =>
@@ -53,17 +71,18 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm newName={newName} newNumber={newNumber} addName={addName} onNewNameChange={onNewNameChange} onNewNumberChange={onNewNumberChange} />
       <h3>Numbers</h3>
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} deletePerson={deletePerson} />
     </div>
   )
 }
 
-const Persons = ({ filteredPersons }) => {
+const Persons = ({ filteredPersons, deletePerson }) => {
   return (
     <ul>
-      {filteredPersons.map((person, index) =>
-        <li key={index}>
+      {filteredPersons.map(person =>
+        <li key={person.id}>
           {person.name} {person.number}
+          <button onClick={() => deletePerson(person.id)}>delete</button>
         </li>
       )}
     </ul>
