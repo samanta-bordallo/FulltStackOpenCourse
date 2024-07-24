@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -8,11 +9,14 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
 
   useEffect(() => {
-    console.log('effect')
-    axios.get('http://localhost:3000/persons').then(response => {
-      console.log('promise fulfilled')
-      setPersons(response.data)
-    })
+    personsService.getAll()
+      .then(response => {
+        setPersons(response.data)
+      })
+      .catch(error => {
+        alert('Error detting persons');
+        console.error('Error:', error);
+      });
   }, [])
 
   const onNewNameChange = (event) => {
