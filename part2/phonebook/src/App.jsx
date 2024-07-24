@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import personsService from './services/persons'
 
 const App = () => {
@@ -12,10 +11,6 @@ const App = () => {
     personsService.getAll()
       .then(response => {
         setPersons(response.data)
-      })
-      .catch(error => {
-        alert('Error detting persons');
-        console.error('Error:', error);
       });
   }, [])
 
@@ -37,9 +32,9 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      axios.post("http://localhost:3000/persons", newNameObj).then(response => {
-        console.log(response)
-        setPersons(persons.concat(newNameObj))
+      personsService.create(newNameObj).then(() => {
+        const updatedPersons = persons.concat(newNameObj)
+        setPersons(updatedPersons)
         setNewName('')
         setNewNumber('')
       })
